@@ -1,1 +1,78 @@
-<p>recipe-form works!</p>
+<h2 class="card-title" style="font-size:24px">
+  {{ editingId ? 'Edit Recipe' : 'Add Recipe' }}
+</h2>
+
+<form [formGroup]="form" (ngSubmit)="submit()" class="form-grid">
+  <label class="fld">
+    <span>Title</span>
+    <input class="input" formControlName="title" />
+    @if (form.get('title')?.touched && form.get('title')?.invalid) {
+      <small class="err">Title is required (min 3)</small>
+    }
+  </label>
+
+  <label class="fld">
+    <span>Short Description</span>
+    <input class="input" maxlength="140" formControlName="shortDescription" />
+    @if (form.get('shortDescription')?.touched && form.get('shortDescription')?.invalid) {
+      <small class="err">Short description is required (max 140)</small>
+    }
+  </label>
+
+  <div class="fld two-cols">
+    <label>
+      <span>Image URL</span>
+      <input class="input" placeholder="https://…" formControlName="imageUrl" />
+      @if (form.get('imageUrl')?.touched && form.get('imageUrl')?.invalid) {
+        <small class="err">Image is required (URL or upload)</small>
+      }
+    </label>
+
+    <label>
+      <span>Upload Thumbnail (optional)</span>
+      <input type="file" accept="image/*" (change)="onImageFile($event)" />
+      <small class="kv">Stores as data URL for demo backend</small>
+    </label>
+  </div>
+
+  @if (form.get('imageUrl')?.valid) {
+    <div class="preview" style="margin:8px 0">
+      <img [src]="form.get('imageUrl')?.value" alt="preview" />
+    </div>
+  }
+
+  <fieldset class="fld">
+    <legend>Ingredients</legend>
+
+    <div class="chips">
+      @for (ing of ings.controls; track $index; let i = $index) {
+        <div class="chip-row">
+          <input class="input" [formControl]="ing" placeholder="e.g. 200g chickpeas" />
+          @if (ings.length > 1) {
+            <button class="btn ghost" type="button" (click)="rmIng(i)">Remove</button>
+          }
+        </div>
+      }
+    </div>
+
+    <button class="btn small" type="button" (click)="addIng()">+ Add Ingredient</button>
+  </fieldset>
+
+  <label class="fld">
+    <span>Instructions</span>
+    <textarea class="input" rows="6" formControlName="instructions"></textarea>
+    @if (form.get('instructions')?.touched && form.get('instructions')?.invalid) {
+      <small class="err">Instructions are required (min 10)</small>
+    }
+  </label>
+
+  <label class="checkbox" style="margin:6px 0 12px">
+    <input type="checkbox" formControlName="favorite" />
+    Mark as favorite
+  </label>
+
+  <div class="actions">
+    <button class="btn" type="submit" [disabled]="form.invalid">Save</button>
+    <a class="btn ghost" routerLink="/">Cancel</a>
+  </div>
+</form>
