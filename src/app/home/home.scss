@@ -1,0 +1,73 @@
+.grid {
+  display: grid;
+  gap: 22px;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: transform .16s ease, box-shadow .24s ease;
+}
+.card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+
+.card > img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  display: block;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 14px;
+  flex: 1;
+}
+
+:root {
+  --title-size: 18px;
+  --title-lh: 1.2;
+  --sub-size: 14px;
+  --sub-lh: 1.35;
+}
+
+
+.card-title {
+  font-size: var(--title-size);
+  font-weight: 800;
+  color: var(--brand-2);
+  margin: 0;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+
+  line-height: var(--title-lh);
+  min-height: calc(var(--title-size) * var(--title-lh));
+}
+
+.card-sub {
+  color: var(--muted);
+  font-size: var(--sub-size);
+  line-height: var(--sub-lh);
+
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+
+  min-height: calc(var(--sub-size) * var(--sub-lh) * 2);
+}
+
+.card-body .btn {
+  margin-top: auto;
+}

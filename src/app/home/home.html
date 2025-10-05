@@ -1,0 +1,44 @@
+<section class="toolbar">
+  <input
+    class="input"
+    [value]="q()"
+    (input)="q.set($any($event.target).value)"
+    placeholder="Search by title or ingredient…"
+  />
+
+  <label class="checkbox">
+    <input
+      type="checkbox"
+      [checked]="onlyFav()"
+      (change)="onlyFav.set($any($event.target).checked)"
+    />
+    Favorites only
+  </label>
+
+  <button type="button" class="btn small" (click)="addRecipe()">+ New Recipe</button>
+</section>
+
+@if (loading()) {
+  <p class="kv">Loading recipes…</p>
+} @else if (error()) {
+  <p class="err">{{ error() }}</p>
+}
+
+@if (!loading() && recipes().length === 0) {
+  <p class="kv">No recipes found. Try a different search or <a routerLink="/recipes/new">add a new one</a>.</p>
+}
+
+<section class="grid">
+  @for (r of recipes(); track r.id) {
+    <article class="card">
+      <img [src]="r.imageUrl" [alt]="r.title" (click)="openDetails(r)" style="cursor:pointer" />
+      <div class="card-body">
+        <a class="card-title" [routerLink]="['/recipes', r.id]">{{ r.title }}</a>
+        <div class="card-sub">{{ r.shortDescription }}</div>
+        <button class="btn ghost" type="button" (click)="toggleFav(r)">
+          {{ r.favorite ? '★ Favorite' : '☆ Mark Favorite' }}
+        </button>
+      </div>
+    </article>
+  }
+</section>
