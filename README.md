@@ -1,59 +1,134 @@
-# GeorgianSupra
+🍲 Georgian Supra — Recipe Sharing App
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.1.0.
+A modern Angular 20 recipe-sharing web application with clean design, lazy loading, and a JSON-based backend.
+Users can browse, search, add, edit, and delete recipes with full details — including ingredients, instructions, and images.
 
-## Development server
+🚀 Features
+🔹 Recipe Display
 
-To start a local development server, run:
+Home page lists all available recipes with title, short description, and image.
 
-```bash
+Each recipe card links to a detailed view page showing:
+
+Full description
+
+Ingredients
+
+Preparation instructions
+
+Edit & Delete options
+
+🔹 Add Recipes
+
+Add new recipes via a simple form.
+
+Fields:
+
+Title
+
+Short Description
+
+Image URL or Upload Thumbnail
+
+Ingredients (dynamic list)
+
+Instructions
+
+Mark as favorite
+
+Built with Angular Reactive Forms and validation.
+
+🔹 Edit & Delete Recipes
+
+Edit or remove recipes after posting directly from the details page.
+
+🔹 Search Functionality
+
+Live search bar filters recipes by title or ingredient.
+
+Toggle switch to show only favorite recipes.
+
+🔹 Routing & Lazy Loading
+
+Uses Angular’s new control flow syntax (@if, @for) and lazy-loaded routes.
+
+Routes include:
+
+/recipes — home page
+
+/recipes/:id — recipe details
+
+/recipes/new — add recipe form
+
+/recipes/:id/edit — edit recipe form
+
+/** — not-found page
+
+🔹 UI & Styling
+
+SCSS styling for consistent layout across cards and forms.
+
+Clean typography, rounded buttons, and responsive grid.
+
+Styled 404 “Not Found” page.
+
+🧩 Tech Stack
+Layer	Technology
+Frontend	Angular 20
+Language	TypeScript
+Styling	SCSS
+Backend (mock API)	JSON Server
+Package Manager	npm
+Architecture	Component-based, Reactive Forms, Signals API, Services.
+⚙️ Setup Instructions
+1️⃣ Clone the repository
+https://github.com/nikakaladze/Georgian-Supra
+cd Georgian-Supra
+
+2️⃣ Install dependencies
+npm install
+
+3️⃣ Run JSON Server (Mock Backend)
+npx json-server --watch db.json --port 3000
+
+
+You can also add a script inside package.json:
+
+"scripts": {
+  "server": "json-server --watch db.json --port 3000"
+}
+
+
+Then simply run:
+
+npm run server
+
+4️⃣ Run Angular Frontend
 ng serve
-```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
 
-## Code scaffolding
+Navigate to:
+👉 http://localhost:4200
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+5️⃣ JSON Server API
 
-```bash
-ng generate component component-name
-```
+Base URL: http://localhost:3000/recipes
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Example:
 
-```bash
-ng generate --help
-```
+GET    /recipes
+GET    /recipes/:id
+POST   /recipes
+PUT    /recipes/:id
+DELETE /recipes/:id
 
-## Building
 
-To build the project run:
+💡 How It Works
 
-```bash
-ng build
-```
+The frontend requests data from json-server (localhost:3000/recipes).
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Recipes are displayed dynamically with Angular bindings.
 
-## Running unit tests
+When you add or edit a recipe, it sends a POST/PUT request to JSON server.
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Search and filtering work on the client-side via Signals & ngModel binding.
