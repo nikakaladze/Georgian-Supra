@@ -1,11 +1,13 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { Recipe } from '../core/models';
 import { ApiInfo } from '../core/api-info';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-home',
-  imports: [],
+  imports: [FormsModule,RouterLink,CommonModule],
   templateUrl: './home.html',
   styleUrl: './home.scss'
 })

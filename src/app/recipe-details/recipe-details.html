@@ -1,0 +1,30 @@
+@if (loading()) {
+<p class="kv">Loading…</p>
+} @else if (error()) {
+<p class="err">{{ error() }}</p>
+} @else if (recipe(); as r) {
+<section class="detail">
+  <img class="hero" [src]="r.imageUrl" [alt]="r.title" />
+
+  <div>
+    <h1 class="card-title" style="font-size: 28px">{{ r.title }}</h1>
+    <div class="kv">{{ r.shortDescription }}</div>
+
+    <h3 class="section-title">Ingredients</h3>
+    <div class="chips">
+      @for (ing of r.ingredients; track $index) {
+      <span class="chip">{{ ing }}</span>
+      }
+    </div>
+
+    <h3 class="section-title">Instructions</h3>
+    <p style="white-space: pre-line">{{ r.instructions }}</p>
+
+    <div class="actions">
+      <a [routerLink]="['/recipes', r.id, 'edit']" class="btn">Edit</a>
+      <button (click)="delete()" class="btn ghost">Delete</button>
+      <a routerLink="/" class="btn ghost">Back</a>
+    </div>
+  </div>
+</section>
+}
